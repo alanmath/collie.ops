@@ -4,24 +4,24 @@ name: infra
 
 services:
 
-jenkins:
+  jenkins:
     container_name: jenkins
     build:
-    dockerfile_inline: |
-        FROM jenkins/jenkins:jdk21
-        USER root
-        RUN apt-get update && apt-get install -y lsb-release
-        RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-        https://download.docker.com/linux/debian/gpg
-        RUN echo "deb [arch=$(dpkg --print-architecture) \
-        signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-        https://download.docker.com/linux/debian \
-        $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-        RUN apt-get update && apt-get install -y docker-ce maven
-        RUN usermod -aG docker jenkins
-        RUN usermod -aG daemon jenkins
-        RUN usermod -aG root jenkins
-        USER jenkins
+      dockerfile_inline: |
+          FROM jenkins/jenkins:jdk21
+          USER root
+          RUN apt-get update && apt-get install -y lsb-release
+          RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
+          https://download.docker.com/linux/debian/gpg
+          RUN echo "deb [arch=$(dpkg --print-architecture) \
+          signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
+          https://download.docker.com/linux/debian \
+          $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+          RUN apt-get update && apt-get install -y docker-ce maven
+          RUN usermod -aG docker jenkins
+          RUN usermod -aG daemon jenkins
+          RUN usermod -aG root jenkins
+          USER jenkins
     # RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
     ports:
         - 9000:8080
@@ -36,4 +36,4 @@ jenkins:
 
 networks:
     infra:
-        driver: bridge
+        driver: bridge 
