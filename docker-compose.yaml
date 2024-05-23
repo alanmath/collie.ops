@@ -27,6 +27,8 @@ services:
           RUN chmod 644 /etc/apt/sources.list.d/kubernetes.list
           RUN apt-get update
           RUN apt-get install -y kubectl
+
+          RUN apt-get install -y awscli
                    
           RUN apt-get install -y wget
           RUN wget https://github.com/aquasecurity/trivy/releases/download/v0.40.0/trivy_0.40.0_Linux-64bit.deb
